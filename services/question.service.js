@@ -10,8 +10,7 @@ db.bind('questions');
 var service = {};
 
 // service.authenticate = authenticate;
-// service.getById = getById;
-service.getAll = getAll;
+service.getById = getById;
 service.create = create;
 service.update = update;
 service.delete = _delete;
@@ -36,29 +35,17 @@ module.exports = service;
 //     return deferred.promise;
 // }
 
-// function getById(_id) {
-//     var deferred = Q.defer();
+function getById(_id) {
+    var deferred = Q.defer();
 
-//     db.users.findById(_id, function (err, user) {
-//         if (err) deferred.reject(err.name + ': ' + err.message);
+    db.questions.findById(_id, function (err, question) {
+        if (err) 
+            deferred.reject(err.name + ': ' + err.message);
+       
+        deferred.resolve();
+    });
 
-//         if (user) {
-//             // return user (without hashed password)
-//             deferred.resolve(_.omit(user, 'hash'));
-//         } else {
-//             // user not found
-//             deferred.resolve();
-//         }
-//     });
-
-//     return deferred.promise;
-// }
-
-function getAll(){
-    db.questions.find({}, function (err, questions) {
-        if (err) deferred.reject(err.name + ': ' + err.message);
-        deferred.resolve(questions);
-     });
+    return deferred.promise;
 }
 
 function create(questionParam) {
@@ -68,10 +55,9 @@ function create(questionParam) {
     db.questions.findOne(
         { question: questionParam.question },
         function (err, question) {
-            if (err) deferred.reject(err.name + ': ' + err.message);
-
+            if (err) 
+                deferred.reject(err.name + ': ' + err.message);
             if (question) {
-                // username already exists
                 deferred.reject('Question "' + questionParam.question + '" is already taken');
             } else {
                 createQuestion();
@@ -79,7 +65,6 @@ function create(questionParam) {
         });
 
     function createQuestion() {
-        // set user object to userParam without the cleartext password
         var question = _.pick(questionParam, "question");
 
         db.questions.insert(

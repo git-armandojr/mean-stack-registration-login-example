@@ -7,8 +7,7 @@ router.get('/', function (req, res) {
     res.render('question');
 });
 
-router.post('/', function (req, res) {
-    //register using api to maintain clean separation between layers
+router.post('/', function (req, res) {    
     request.post({
         url: config.apiUrl + '/questions/question',
         form: req.body,
@@ -24,10 +23,9 @@ router.post('/', function (req, res) {
                 question: req.body.question
             });
         }
-
-        // return to login page with success message
+        
         req.session.success = 'Question saved successful';
-        return res.redirect('/question');
+        return res.redirect('/login');
     });
 });
 

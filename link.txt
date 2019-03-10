@@ -1,0 +1,1 @@
+https://github.com/git-armandojr/mean-stack-registration-login-example.git
