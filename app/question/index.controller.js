@@ -5,7 +5,7 @@
         .module('app')
         .controller('Question.IndexController', Controller);
 
-    function Controller(QuestionService, FlashService) {
+    function Controller($window, QuestionService, FlashService) {
         var vm = this;
 
         vm.questions = [];
@@ -22,7 +22,8 @@
         function deleteQuestion(_id) {
             QuestionService.Delete(_id)
                 .then(function () {
-                    FlashService.Success('Question deleted');
+                    $window.location.reload();
+                    // FlashService.Success('Question deleted');
                 })
                 .catch(function (error) {
                     FlashService.Error(error);
