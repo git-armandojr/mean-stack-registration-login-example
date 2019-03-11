@@ -7,7 +7,7 @@ var userService = require('services/user.service');
 router.post('/authenticate', authenticateUser);
 router.post('/register', registerUser);
 router.get('/current', getCurrentUser);
-router.get('/all', getAllUsers);
+router.get('/all', getAll);
 router.put('/:_id', updateUser);
 router.delete('/:_id', deleteUser);
 
@@ -53,18 +53,14 @@ function getCurrentUser(req, res) {
         });
 }
 
-function getAllUsers() {
-    userService.getAll()
-        .then(function (users) {
-            if (users) {
-                res.send(users);
-            } else {
-                res.sendStatus(404);
-            }
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
-        });
+function getAll(req,res) {
+  userService.getAll()
+    .then(function (users) {
+      res.send(users)
+    })
+    .catch(function (err) {
+      res.status(400).send(err);
+    });
 }
 
 function updateUser(req, res) {

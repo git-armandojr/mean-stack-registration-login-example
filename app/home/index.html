@@ -1,2 +1,4 @@
 ﻿<h1>Hi {{vm.user.firstName}}!!</h1>
-<h1>Hi {{vm.users}}!!</h1>
+<ul ng-repeat="user in vm.users">
+    <li>{{user.firstName}}</li>
+</ul>

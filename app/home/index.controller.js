@@ -9,7 +9,7 @@
         var vm = this;
 
         vm.user = null;
-        vm.users = null;
+        vm.users = [];
 
         initController();
 

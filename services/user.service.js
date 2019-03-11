@@ -56,18 +56,12 @@ function getById(_id) {
 
 function getAll() {
     var deferred = Q.defer();
-
-    db.users.find().toArray(function(err, result) {
-        if (err) deferred.reject(err.name + ': ' + err.message);
-
-        if (result) {
-            deferred.resolve(result);
-        } else {
-            deferred.resolve();
-        }
-        
+  
+    db.users.find().toArray(function (err, users) {
+      if (err) deferred.reject(err.name + ': ' + err.message);
+      deferred.resolve(users);
     });
-
+  
     return deferred.promise;
 }
 

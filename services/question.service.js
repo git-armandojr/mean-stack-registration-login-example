@@ -11,6 +11,7 @@ var service = {};
 
 // service.authenticate = authenticate;
 service.getById = getById;
+service.getAll = getAll;
 service.create = create;
 service.update = update;
 service.delete = _delete;
@@ -46,6 +47,17 @@ function getById(_id) {
     });
 
     return deferred.promise;
+}
+
+function getAll() {
+  var deferred = Q.defer();
+
+  db.questions.find().toArray(function (err, questions) {
+    if (err) deferred.reject(err.name + ': ' + err.message);
+    deferred.resolve(questions);
+  });
+
+  return deferred.promise;
 }
 
 function create(questionParam) {
