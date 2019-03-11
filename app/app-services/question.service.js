@@ -9,11 +9,16 @@
         var service = {};
 
         service.GetAll = GetAll;
+        service.Delete = Delete;
 
         return service;
 
         function GetAll() {
             return $http.get('/api/questions/all').then(handleSuccess, handleError);
+        }
+
+        function Delete(_id) {
+            return $http.delete('/api/questions/' + _id).then(handleSuccess, handleError);
         }
 
         // private functions
